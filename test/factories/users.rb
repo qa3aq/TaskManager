@@ -3,7 +3,7 @@ FactoryBot.define do
     first_name
     last_name
     password
-    email { 'MyString' }
+    email
     avatar { 'MyString' }
     type { '' }
 
