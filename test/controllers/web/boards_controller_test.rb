@@ -1,8 +1,8 @@
-require "test_helper"
+require 'test_helper'
 
-class Web::BoardsControllerTest < ActionDispatch::IntegrationTest
-  test "should get show" do
-    get web_boards_show_url
+class Web::BoardsControllerTest < ActionController::TestCase
+  test "should get new" do
+    get :show
     assert_response :success
   end
 end

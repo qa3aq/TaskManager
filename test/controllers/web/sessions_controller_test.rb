@@ -1,8 +1,8 @@
-require "test_helper"
+require 'test_helper'
 
-class Web::SessionsControllerTest < ActionDispatch::IntegrationTest
+class Web::SessionsControllerTest < ActionController::TestCase
   test "should get new" do
-    get web_sessions_new_url
+    get :new
     assert_response :success
   end
 end
