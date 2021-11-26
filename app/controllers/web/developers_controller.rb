@@ -1,4 +1,4 @@
-class Web::DevelopersController < Web::ApplicationController
+  class Web::DevelopersController < Web::ApplicationController
   def new
     @developer = Developer.new
   end
