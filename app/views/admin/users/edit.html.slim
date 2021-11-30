@@ -1,3 +1,2 @@
-= simple_form_for @user, as: :user, url: admin_user_path(@user) do |f|
-  h4 Edit user
-  = render 'form', f: f
+h4 Edit user
+= render partial: 'form', locals: { user: @user, path: admin_users_path(@user) }
