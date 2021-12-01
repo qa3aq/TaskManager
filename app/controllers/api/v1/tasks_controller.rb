@@ -27,4 +27,11 @@ class Api::V1::TasksController < Api::V1::ApplicationController
   def task_params
     params.require(:task).permit(:name, :description, :author_id, :assignee_id, :state_event)
   end
+
+  def update
+    task = Task.find(params[:id])
+    task.update(task_params)
+
+    respond_with(task, serializer: TaskSerializer)
+  end
 end

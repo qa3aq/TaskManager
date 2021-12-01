@@ -23,4 +23,8 @@ class Api::V1::ApplicationController < Api::ApplicationController
     per = params.fetch(:per, 10).to_i
     per > 100 ? 100 : per
   end
+
+  def self.responder
+    JsonResponder
+  end
 end
