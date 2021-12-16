@@ -29,7 +29,8 @@
     "styled-components": "^5.3.3",
     "webpack": "^4.46.0",
     "webpack-cli": "^3.3.12",
-    "webpacker-react": "^0.3.2"
+    "webpacker-react": "^0.3.2",
+    "humps": "^2.0.1"
   },
   "version": "0.1.0",
   "devDependencies": {
