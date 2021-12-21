@@ -3,6 +3,7 @@ import KanbanBoard from '@asseinfo/react-kanban';
 import { propOr } from 'ramda';
 
 import AddPopup from 'components/AddPopup';
+import EditPopup from 'components/EditPopup';
 import ColumnHeader from 'components/ColumnHeader';
 import Task from 'components/Task';
 import TaskForm from 'forms/TaskForm';
@@ -34,9 +35,11 @@ const initialBoard = {
 const MODES = {
   ADD: 'add',
   NONE: 'none',
+  EDIT: 'edit',
 };
 
 const TaskBoard = () => {
+  const [openedTaskId, setOpenedTaskId] = useState(null);
   const [mode, setMode] = useState(MODES.NONE);
   const styles = useStyles();
   const [board, setBoard] = useState(initialBoard);
@@ -50,6 +53,7 @@ const TaskBoard = () => {
 
   const handleClose = () => {
     setMode(MODES.NONE);
+    setOpenedTaskId(null);
   };
 
   const handleTaskCreate = (params) => {
@@ -58,6 +62,29 @@ const TaskBoard = () => {
       loadColumnInitial(task.state);
       handleClose();
     });
+  };
+
+  const loadTask = (id) => TasksRepository.show(id).then(({ data: { task } }) => task);
+
+  const handleTaskUpdate = (task) => {
+    const attributes = TaskForm.attributesToSubmit(task);
+
+    return TasksRepository.update(task.id, attributes).then(() => {
+      loadColumnInitial(task.state);
+      handleClose();
+    });
+  };
+
+  const handleTaskDestroy = (task) => {
+    TasksRepository.destroy(task.id).then(() => {
+      loadColumnInitial(task.state);
+      handleClose();
+    });
+  };
+
+  const handleOpenEditPopup = (task) => {
+    setOpenedTaskId(task.id);
+    setMode(MODES.EDIT);
   };
 
   const loadColumn = (state, page, perPage) =>
@@ -125,15 +152,24 @@ const TaskBoard = () => {
     <div>
       <KanbanBoard
         onCardDragEnd={handleCardDragEnd}
-        renderCard={(card) => <Task task={card} />}
+        renderCard={(card) => <Task onClick={handleOpenEditPopup} task={card} />}
         renderColumnHeader={(column) => <ColumnHeader column={column} onLoadMore={loadColumnMore} />}
       >
         {board}
       </KanbanBoard>
       <Fab onClick={handleOpenAddPopup} className={styles.addButton} color="primary" aria-label="add">
         <AddIcon />
-        {mode === MODES.ADD && <AddPopup onCreateCard={handleTaskCreate} onClose={handleClose} />}
       </Fab>
+      {mode === MODES.ADD && <AddPopup onCreateCard={handleTaskCreate} onClose={handleClose} />}
+      {mode === MODES.EDIT && (
+        <EditPopup
+          cardId={openedTaskId}
+          onClose={handleClose}
+          onLoadCard={loadTask}
+          onCardDestroy={handleTaskDestroy}
+          onCardUpdate={handleTaskUpdate}
+        />
+      )}
     </div>
   );
 };
