@@ -83,7 +83,21 @@ export const useTasksActions = () => {
     });
   };
 
+  const updateTask = (task) => {
+    const attributes = TaskForm.attributesToSubmit(task);
+
+    return TasksRepository.update(task.id, attributes).then(() => {
+      loadColumn(task.state);
+    });
+  };
+
   const loadTask = (id) => TasksRepository.show(id).then(({ data: { task } }) => task);
+
+  const destroyTask = (task) => {
+    TasksRepository.destroy(task.id).then(() => {
+      loadColumn(task.state);
+    });
+  };
 
   return {
     loadBoard,
@@ -91,5 +105,7 @@ export const useTasksActions = () => {
     loadColumnMore,
     createTask,
     loadTask,
+    updateTask,
+    destroyTask,
   };
 };
