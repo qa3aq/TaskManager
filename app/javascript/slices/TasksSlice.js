@@ -83,10 +83,13 @@ export const useTasksActions = () => {
     });
   };
 
+  const loadTask = (id) => TasksRepository.show(id).then(({ data: { task } }) => task);
+
   return {
     loadBoard,
     loadColumn,
     loadColumnMore,
     createTask,
+    loadTask,
   };
 };
