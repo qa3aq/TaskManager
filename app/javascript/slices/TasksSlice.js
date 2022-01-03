@@ -1,9 +1,10 @@
 import { propEq } from 'ramda';
 import { createSlice } from '@reduxjs/toolkit';
-import TasksRepository from 'repositories/TasksRepository';
-import { STATES } from 'presenters/TaskPresenter';
 import { useDispatch } from 'react-redux';
 import { changeColumn } from '@asseinfo/react-kanban';
+import TaskForm from 'forms/TaskForm';
+import TasksRepository from 'repositories/TasksRepository';
+import { STATES } from 'presenters/TaskPresenter';
 
 const initialState = {
   board: {
@@ -75,9 +76,17 @@ export const useTasksActions = () => {
 
   const loadBoard = () => STATES.map(({ key }) => loadColumn(key));
 
+  const createTask = (params) => {
+    const attributes = TaskForm.attributesToSubmit(params);
+    return TasksRepository.create(attributes).then(() => {
+      loadColumn('new_task');
+    });
+  };
+
   return {
     loadBoard,
     loadColumn,
     loadColumnMore,
+    createTask,
   };
 };
