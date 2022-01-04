@@ -99,6 +99,22 @@ export const useTasksActions = () => {
     });
   };
 
+  const dragEndCard = (task, source, destination) => {
+    const transition = task.transitions.find(({ to }) => destination.toColumnId === to);
+    if (!transition) {
+      return null;
+    }
+
+    return TasksRepository.update(task.id, { stateEvent: transition.event })
+      .then(() => {
+        loadColumn(destination.toColumnId);
+        loadColumn(source.fromColumnId);
+      })
+      .catch((error) => {
+        alert(`Move failed! ${error.message}`);
+      });
+  };
+
   return {
     loadBoard,
     loadColumn,
@@ -107,5 +123,6 @@ export const useTasksActions = () => {
     loadTask,
     updateTask,
     destroyTask,
+    dragEndCard,
   };
 };
