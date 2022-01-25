@@ -8,9 +8,6 @@ html lang="en"
     link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"
     = stylesheet_link_tag "application", media: "all"
     = csrf_meta_tags
-    - if !Rails.env.development?
-      = stylesheet_packs_with_chunks_tag "application", media: "all"
-
 
   body
     = javascript_packs_with_chunks_tag 'application'
@@ -37,4 +34,4 @@ html lang="en"
     footer#footer.mdl-mini-footer
       .mdl-mini-footer__left-section
         .mdl-logo
-          | &copy; Dualboot Learn 2020
+          | &copy; Dualboot Learn 2022

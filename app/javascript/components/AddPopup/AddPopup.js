@@ -70,14 +70,6 @@ const AddPopup = ({ onClose, onCreateCard }) => {
               margin="dense"
             />
             <UserSelect
-              label="Author"
-              value={TaskPresenter.author(task)}
-              onChange={handleChangeSelect('author')}
-              isRequired
-              error={has('author', errors)}
-              helperText={errors.author}
-            />
-            <UserSelect
               label="Assignee"
               value={TaskPresenter.assignee(task)}
               onChange={handleChangeSelect('assignee')}
