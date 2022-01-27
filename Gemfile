@@ -38,6 +38,7 @@ gem 'webpacker-react'
 gem 'js-routes'
 gem 'coveralls', require: false
 gem 'newrelic_rpm'
+gem 'rollbar'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
