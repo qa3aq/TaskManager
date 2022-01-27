@@ -160,6 +160,7 @@ GEM
     msgpack (1.4.2)
     multi_json (1.15.0)
     netrc (0.11.0)
+    newrelic_rpm (8.4.0)
     nio4r (2.5.8)
     nokogiri (1.12.5)
       mini_portile2 (~> 2.6.1)
@@ -334,6 +335,7 @@ DEPENDENCIES
   js-routes
   kaminari
   listen (~> 3.3)
+  newrelic_rpm
   pg (~> 1.1)
   puma (~> 5.0)
   rack-mini-profiler (~> 2.0)

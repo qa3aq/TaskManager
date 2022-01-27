@@ -37,6 +37,7 @@ gem 'active_model_serializers'
 gem 'webpacker-react'
 gem 'js-routes'
 gem 'coveralls', require: false
+gem 'newrelic_rpm'
 gem 'rollbar'
 
 group :development, :test do
